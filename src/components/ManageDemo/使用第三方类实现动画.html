@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../StudyAndTest/vue.js"></script>
+    <link rel="stylesheet" href="../StudyAndTest/animate.css">
+    <!--自定义两组样式来控制transition内实现的动画-->
+    <style type="text/css">
+    </style>
+</head>
+<body>
+<!--
+功能：使用第三方库animate来实现动画,在这里使用rollin和rollout
+所属：刁玉宽
+-->
+<div id="app">
+    <!--使用vue的动画1实现页面渐变，把需要动画控制的元素用transition包裹起来,他是vue官方提供的一个元素,duration代表设置时间-->
+    <input type="button" value="点击" @click="flag = !flag">
+    <transition enter-active-class="animated jello" leave-active-class="animated flipOutX" :duration="{enter:400,leave:800}">
+        <h3 v-if="flag">动画渐变</h3>
+    </transition>
+
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            flag:false
+        },
+        methods: {}
+    });
+</script>
+
+
+</body>
+</html>

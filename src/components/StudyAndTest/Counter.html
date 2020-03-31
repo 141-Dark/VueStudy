@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+<!--
+功能：实现计算器的功能
+所属：刁玉宽
+-->
+<div id="app">
+    <input type="text" v-model="n1">
+    <select v-model="opt">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+    </select>
+    <input type="text" v-model="n2">
+    <input type="button" value="=" @click="doCounter">
+    <input type="text" v-model="result">
+</div>
+
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            n1:0,
+            n2:0,
+            result:0,
+            opt:'+'
+        },
+        methods: {
+            doCounter(){
+                //计算数值
+                // switch (this.opt) {
+                //     case "+":
+                //         this.result = parseInt(this.n1)+parseInt(this.n2);
+                //         break;
+                //     case "-":
+                //         this.result = parseInt(this.n1)-parseInt(this.n2);
+                //         break;
+                //     case "*":
+                //         this.result = parseInt(this.n1)*parseInt(this.n2);
+                //         break;
+                //     case "/":
+                //         this.result = parseInt(this.n1)/parseInt(this.n2);
+                //         break;
+                // }
+
+                //可以采用解析执行的方法,正式开发中少用
+                var str = parseInt(this.n1)+ this.opt + parseInt(this.n2)
+                this.result = eval(str)
+            }
+        }
+    });
+</script>
+
+
+</body>
+</html>

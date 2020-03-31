@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="../StudyAndTest/vue.js"></script>
+    <script src="../StudyAndTest/vue-router.js"></script>
+    <link rel="stylesheet" href="../StudyAndTest/animate.css">
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+    <style>
+        .header{
+            background-color: orange;
+            width: 100%;
+            height: 100px;
+        }
+        .container{
+            display: flex;
+            height: 600px;
+        }
+        .leftBox{
+            background-color: antiquewhite;
+
+        }
+        .main{
+            background-color: aquamarine;
+        }
+    </style>
+</head>
+<body>
+<!--
+功能：
+所属：刁玉宽
+-->
+<div id="app">
+    <router-view></router-view>
+
+    <div class="container">
+        <router-view name="left"></router-view>
+        <router-view name="main"></router-view>
+    </div>
+
+</div>
+<script>
+    var header = {
+        template:'<h3 class="header">header头部</h3>'
+    }
+
+    var leftBox = {
+        template:'<h3 class="leftBox">leftBox左部</h3>'
+    }
+
+    var mainBox = {
+        template:'<h3 class="main">reightBox主体区域</h3>'
+    }
+
+    var routerObj = new VueRouter({
+        routes:[
+            {path:'/',components: {
+                    'default':header,
+                    'left':leftBox,
+                    'main':mainBox
+                }
+            }
+        ]
+    })
+    var vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        router:routerObj
+    });
+</script>
+
+
+</body>
+</html>

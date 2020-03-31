@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="../StudyAndTest/vue.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+</head>
+<body>
+<!--
+功能：
+所属：刁玉宽
+-->
+<div id="app">
+    <div class="panel-body panel-primary">
+        <div class="panel-heading">
+            <h4 class="panel-title">添加品牌</h4>
+        </div>
+
+        <div class="panel-body form-inline">
+
+            <label>
+                name:
+                <!--当点击回车时自动添加-->
+                <input type="text" class="form-control" v-model="name" >
+            </label>
+
+            <!--在vue中，如果方法加了小括号，则可以对方法进行传递参数-->
+            <input type="button" value="添加" class="btn btn-primary" @click="add">
+
+            <label>
+                输入搜索关键字
+                <!--vue中所有的自定义指令都以v-开头,实现刷新页面时，焦点在搜索框中,字体颜色改变-->
+                <input type="text" class="form-control" v-model="keywords">
+            </label>
+        </div>
+    </div>
+
+    <br>
+
+    <table  class="table table-dark table-striped">
+        <thead>
+        <th>ID</th>
+        <th>NAME</th>
+        <th>Ctime</th>
+        <th>Opration</th>
+        </thead>
+        <tbody>
+        <tr v-for="item in list" :key="item.id">
+            <td>{{ item.id }}</td>
+            <td>{{ item.name }}</td>
+            <td >{{ item.Ctime }}</td>
+            <td>
+                <!--根据id来删除-->
+                <a href="#" @click.prevent="del(item.id)">删除</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+
+            name:'',
+            keywords:'',//搜索的关键字
+            list:[
+                {id:1,name:'凯迪拉克',Ctime:new Date()},
+                {id:2,name:'HAVAL',Ctime:new Date()}
+            ]
+        },
+        created(){
+            //调用生命周期函数，实现初始化的时候将数据渲染到页面
+            this.getAllList()
+        },
+        methods: {
+            add() {
+                /*
+                * 1、获取id和name，因为做了双向数据绑定，所以可以直接从data中获取数据
+                * 2、组织成一个对象
+                * 3、调用数组的相关方法，添加到data中的list数组中
+                * 注意：在vue中已经实现了数据的双向绑定，每当我们修改了data中的数据，vue会自动监听到相关的改动，
+                * 自动把最新的数据渲染到页面
+                * */
+                var car = {id:this.id,name:this.name,Ctime:new Date()   }
+                this.list.push(car);
+                //添加成功以后清空输入框
+                this.id = this.name = ''
+            },
+            del(id){
+                /*
+                * 1、根据id来找到索引
+                * 2、找到索引以后直接根据数组的splice方法删除
+                * */
+                //i为索引，()=>{}和普通方法没有多少区别，他是匿名函数，但是他的this指向和外侧保持一致
+                /*this.list.some((iten,i) => {
+                //iten代表的是list中的对象，id是方法中的参数
+                    if(iten.id == id){
+                        this.list.splice(i,1)//从i开始删，删一个
+                        //在数组的some方法中，如果返回true则理解停止查找
+                        return true;
+                    }
+                })*/
+
+                //可以用另一种方法
+                var i = this.list.findIndex(ite=>{
+                    if (ite.id == id){
+                        return true
+                    }
+                })
+                this.list.splice(i,1)
+            },
+            getAllList(){
+                //获取所有品牌列表
+                //请求的地址，请求成功以后调用result
+                this.$http.get('http://vue.studyit.io/api/getprodlist').then(result => {
+                    var resut = result.body
+                    if (resut.status == 0){
+                        //获取成功
+                        this.list = resut.message
+                    }
+                    else {
+                        //失败
+                    }
+                })
+            }
+        }
+    });
+</script>
+
+
+</body>
+</html>

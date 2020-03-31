@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+<!--
+功能：使用过滤器替换其中的字符
+所属：刁玉宽
+-->
+<div id="app">
+    <p>{{ msg | msgFormat }}</p>
+</div>
+<script>
+    //使用过滤器替换单纯两个字
+    Vue.filter('msgFormat',function (msg) {
+        //return msg.replace('单纯','邪恶')//替换的是第一个单纯，所以最好用正则表达式
+        return msg.replace(/单纯/g,'邪恶')//g代表全局匹配
+    })
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            msg:'我还是曾经那个单纯的少年，没有一丝丝改变，谁是最单纯的人'
+        },
+        methods: {}
+    });
+</script>
+
+
+</body>
+</html>

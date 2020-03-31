@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="../StudyAndTest/vue.js"></script>
+    <!--自定义两组样式来控制transition内实现的动画-->
+    <style type="text/css">
+        /*
+        .v-enter进入之前元素的起始状态,此时还没有开始进入
+        .v-leave-to是离开的状态，元素动画已经结束
+        */
+        .v-enter,
+        .v-leave-to{
+            opacity: 0;
+            /*控制水平方向进入的效果*/
+            transform: translateX(50%);
+        }
+
+        .v-enter-active,
+        .v-leave-active{
+            transition: all 0.4s ease;
+
+        }
+    </style>
+</head>
+<body>
+<!--
+功能：实现渐变的动画效果
+所属：刁玉宽
+-->
+<div id="app">
+<!--使用vue的动画1实现页面渐变，把需要动画控制的元素用transition包裹起来,他是vue官方提供的一个元素-->
+    <input type="button" value="点击" @click="flag = !flag">
+    <transition>
+        <h3 v-if="flag">动画渐变</h3>
+    </transition>
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            flag:false
+        },
+        methods: {}
+    });
+</script>
+
+
+</body>
+</html>

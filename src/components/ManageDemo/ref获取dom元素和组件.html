@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="../StudyAndTest/vue.js"></script>
+    <script src="../StudyAndTest/vue-router.js"></script>
+    <link rel="stylesheet" href="../StudyAndTest/animate.css">
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+</head>
+<body>
+<!--
+功能：
+所属：刁玉宽
+-->
+<div id="app">
+    <input type="button" value="点击" @click="dos">
+    <h3 id="h3" ref="h33">今天周二</h3>
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {},
+         methods: {
+            dos(){
+                //获取元素内部的文本
+                //console.log(document.getElementById(h3).innerText)
+                console.log(this.$refs.h33.innerText)
+            }
+        }
+    });
+</script>
+
+
+</body>
+</html>

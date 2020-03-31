@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="../StudyAndTest/vue.js"></script>
+    <link rel="stylesheet" href="../StudyAndTest/animate.css">
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+</head>
+<body>
+<!--
+功能：
+所属：刁玉宽
+-->
+<div id="app">
+    <a href="" @click.prevent="com='login'">登录</a>
+    <a href="" @click.prevent="com='register'">注册</a>
+    <!--is属性用来指定组件的名称，由于定义2的组件名称是一个字符串，所以要用''-->
+    <component :is="com"></component>
+</div>
+
+
+<!----------------------------------------------------------------------->
+<template id="login">
+    <transition enter-active-class="animated flipOutY" tag="div">
+        <div>这是登录页面</div>
+    </transition>
+</template>
+
+
+<template id="register">
+    <transition enter-active-class="animated flipOutX" tag="div" >
+        <div>这是注册页面</div>
+    </transition>
+</template>
+<!----------------------------------------------------------------------->
+<script>
+    //login是个字符串
+    Vue.component('login',{
+        //登录组件
+        template:'#login'
+    })
+
+    Vue.component('register',{
+        //注册组件
+        template:'#register'
+    })
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            com:''//当前component中is属性的值
+        },
+        methods: {}
+    });
+</script>
+
+
+</body>
+</html>

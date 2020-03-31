@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+
+    <div id="app">
+        <div  v-on:click="divclick">
+            <input type="button" value="点击" v-on:click.stop="btn">
+<!--            <h3 :style="sty">as</h3>-->
+            <h3 :style="[sty1,sty2  ]">as</h3>
+        </div>
+    </div>
+
+    <script>
+        /*
+        * .stop用于阻止所有冒泡行为,通常放在最里层（页面上的最外层）
+        * .prevent用于阻止默认行为（href跳转）
+        * .capture实现捕获
+        * .self实现只有点击当前元素时才会触发相应事件（阻止当前冒泡行为）
+        * .once实现只触发一次行为
+        * */
+        var vm = new Vue({
+            el:'#app',
+            data: {
+                sty1:{'color':'red'},
+                sty2:{'font-style':'italic'}
+            },
+            methods:{
+                divclick(){
+                    alert("点击了div")
+                    console.log('div')
+                },
+                btn(){
+                    alert("点击了按钮")
+                    console.log('按钮')
+                }
+            }
+        });
+    </script>
+
+
+</body>
+</html>

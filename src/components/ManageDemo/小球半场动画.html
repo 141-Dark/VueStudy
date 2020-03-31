@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="../StudyAndTest/vue.js"></script>
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+    <style type="text/css">
+        .ball{
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background-color: red;
+        }
+        #app{
+            margin-left: 10%;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+<!--
+功能：使用钩子函数实现小球的半场动画（加入购物车的动画）
+所属：刁玉宽
+-->
+
+<div id="app">
+    <input type="button" value="加入购物车" @click="flag =! flag">
+    <transition @before-enter="before" @enter="enter" @after-enter="after">
+        <div class="ball" v-if="flag"></div>
+    </transition>
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            flag:false
+        },
+        methods: {
+            //动画钩子函数中的第一个参数el代表要执行动画的那个dom元素，是原生js的dom对象，可以理解为el=document.getElementByid()
+            before(el){
+                //代表动画入场之前，此时，动画还没有开始，可以 设置动画的起始的状态
+                el.style.transform=translate(0,0);
+            },
+            enter(el,ds) {
+                //el.offsetWidth可以实现强制动画刷新
+                el.offsetWidth
+                el.style.transform="translate(150px,450px)"
+                el.style.transition = "all 1s ease"
+                //ds其实是after函数的引用，必须调用
+                ds()
+            },
+            after(el){
+                this.flag = !this.flag
+            }
+        }
+    });
+</script>
+
+
+</body>
+</html>

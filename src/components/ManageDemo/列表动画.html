@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="../StudyAndTest/vue.js"></script>
+    <link rel="stylesheet" href="../StudyAndTest/animate.css">
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+</head>
+<body>
+<!--
+功能：实现列表动画
+所属：刁玉宽
+-->
+<div id="app">
+    <div>
+        <label>
+            ID:
+            <input type="text" v-model="id">
+        </label>
+
+        <label>
+            NAME:
+            <input type="text" v-model="name">
+        </label>
+
+        <input type="button" value="添加" @click="add">
+    </div>
+   <!--由于transition在网页上渲染的标签默认是span，不符合规范，所以需要设置tag-->
+    <transition-group class="list-group" tag="ul" enter-active-class="animated flipOutY" leave-active-class="animated flipOutX" :duration="{enter:1500,leave:800}" appear>
+        <li class="list-group-item" v-for="item in list" :key="item.id">{{ item.id }}-------{{ item.name }}</li>
+    </transition-group>
+
+
+
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            id:'',
+            name:'',
+            list:[
+                {id:1,name:"凯迪拉克"},
+                {id:2,name:"海马"},
+                {id:3,name:"哈弗"},
+                {id:4,name:"大众"}
+                ]
+        },
+        methods: {
+            add(){
+                this.list.push({id:this.id,name:this.name})
+                this.id = this.name = ''
+            }
+        }
+    });
+</script>
+
+
+</body>
+</html>

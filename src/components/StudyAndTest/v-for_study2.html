@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="vue.js"></script>
+</head>
+<body>
+<!--
+功能：
+所属：刁玉宽
+-->
+<div id="app">
+    <div>
+        <label>ID:
+            <input type="text" v-model="id">
+        </label>
+
+        <label>NAME:
+            <input type="text" v-model="name">
+        </label>
+
+        <input type="button" value="添加" @click="add">
+    </div>
+<!--必须绑定属性值(保证数据的唯一性)-->
+    <p v-for="item in list" v-bind:key="item.id">
+        <input type="checkbox">用户id：{{item.id}},姓名：{{item.name}}
+    </p>
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            id:'',
+            name:'',
+            list:[
+                {id:1,name:'刁玉宽'},
+                {id:2,name:'刁玉萍'},
+                {id:3,name:'刁玉龙'},
+                {id:4,name:'阿刁'},
+                {id:5,name:'刁民'}
+            ]
+        },
+        methods: {
+            add(){
+                this.list.push({id:this.id,name:this.name})
+            }
+        }
+    });
+</script>
+
+
+</body>
+</html>

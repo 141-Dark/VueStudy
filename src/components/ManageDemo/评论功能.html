@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="../StudyAndTest/vue.js"></script>
+    <link rel="stylesheet" href="../StudyAndTest/animate.css">
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+</head>
+<body>
+<!--
+功能：
+所属：刁玉宽
+-->
+<div id="app">
+    <box @fun="loadcommonts"></box>
+    <transition-group tag="ul" class="list-group" enter-active-class="animated flipOutX" leave-active-class="animated flipOutX" :duration="{enter:400,leave:800}" appear>
+        <li class="list-group-item" v-for="item in list" :key="item.id">
+            <span class="badge">评论人：{{item.name}}</span>
+            {{ item.content }}
+        </li>
+    </transition-group>
+</div>
+
+
+<!---------------------------------------------------------------------------------->
+<template id="box">
+    <div style="margin-left: 35%">
+        <div class="form-group">
+            <label>评论人：</label>
+            <input type="text" class="form-control" style="width: 30%" v-model="name">
+        </div>
+
+        <div class="form-group">
+            <label>评论内容：</label>
+            <textarea class="form-control" style="width: 30%" v-model="content"></textarea>
+        </div>
+
+        <div class="form-group">
+            <input type="button" value="评论" class="btn btn-primary" style="width: 30%" @click="post">
+        </div>
+    </div>
+</template>
+<!------------------------------------------------------------------------------------>
+<script>
+    //先定义一个评论的共有盒子
+    var commmontBox = {
+        template:'#box',
+        data(){
+            return{
+                name:'',
+                content:''
+            }
+        },
+        methods: {
+            post(){
+                /*
+                * 先组织一个评论对象
+                * 将对象存放到locallStorage中
+                * locallStorage只支持存放字符串
+                * */
+                var comment = {id:Date.now(),name:this.name,content:this.content}
+                //在locallStorary中获取之前的评论,获取到的内容是字符串，我们需要将它转换成对象
+
+                var list = JSON.parse(localStorage.getItem('cstm')||'[]')
+
+                list.push(comment)
+                //保存最新评论数据，JSON.stringify转换成数组字符串
+                localStorage.setItem('cstm',JSON.stringify(list))
+                this.name = this.content = ''
+                this.$emit('fun')
+            }
+        }
+    }
+
+    //父组件
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            list:[
+                {id:Date.now(),name:'刁先生',content:'得之淡然，失之坦然'},
+            ]
+        },
+        methods: {
+            loadcommonts(){
+                //c从本地的locallStorage中获取评论列表（先读取，如果读到了名为cstm的存储，则转换，读不到则转为空数组），转为数组对象
+                var list = JSON.parse(localStorage.getItem('cstm')||'[]')
+                this.list = list
+            }
+        },
+        created(){
+            //在钩子函数中调用
+            this.loadcommonts()
+        },
+        components:{
+            'box':commmontBox
+        }
+    });
+</script>
+
+
+</body>
+</html>

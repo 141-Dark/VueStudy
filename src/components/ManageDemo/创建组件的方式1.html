@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="../StudyAndTest/vue.js"></script>
+    <link rel="stylesheet" href="../StudyAndTest/animate.css">
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+</head>
+<body>
+<!--
+功能：组件的作用是将Vue分散，功能分开，用的时候直接调用就行
+所属：刁玉宽
+-->
+<div id="app">
+    <myCom1></myCom1>
+</div>
+<script>
+    //使用Vue.extends来创建全局的vue组件，模板对象
+    var com1 =Vue.extend({
+        template:'<h3>这是全局组件template</h3>'//使用template指定组件要展示的html结构
+    })
+    //Vue.component('组件名称'，'模板对象')
+    Vue.component('mycom1',com1)
+
+    var vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {}
+    });
+</script>
+
+
+</body>
+</html>

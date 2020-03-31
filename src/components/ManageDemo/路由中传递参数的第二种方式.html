@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="../StudyAndTest/vue.js"></script>
+    <script src="../StudyAndTest/vue-router.js"></script>
+    <link rel="stylesheet" href="../StudyAndTest/animate.css">
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+</head>
+<body>
+<!--
+功能：获取参数的第二种方式
+所属：刁玉宽
+-->
+<div id="app">
+    <router-link to="/login/12/刁玉宽">登录</router-link>
+    <router-link to="/register">注册</router-link>
+
+    <transition enter-active-class="animated jello" leave-active-class="animated flipOutX" :duration="{enter:400,leave:800}" mode="out-in">
+        <router-view></router-view>
+    </transition>
+
+</div>
+<script>
+    //创建模板
+    var login = {
+        template:'<h3>登录-------------->{{$route.params.id}}-------------->{{$route.params.name}}</h3>',
+    }
+
+    var register = {
+        template:'<h3>注册</h3>'
+    }
+
+    //创建路由对象
+    var routerObj = new VueRouter({
+        routes: [
+            {path:'/',redirect:'/login'},
+            {path:'/login/:id/:name',component:login},
+            {path:'/register',component:register}
+        ],
+        linkActiveClass: 'text-danger'
+    })
+    var vm = new Vue({
+        el: '#app',
+        data: {},
+        methods: {},
+        router:routerObj//挂载路由
+    });
+</script>
+
+
+</body>
+</html>

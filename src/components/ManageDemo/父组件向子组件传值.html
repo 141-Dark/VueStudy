@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml" xmlns:v-bind="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://cdn.staticfile.org/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/popper.js/1.15.0/umd/popper.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="../StudyAndTest/vue.js"></script>
+    <link rel="stylesheet" href="../StudyAndTest/animate.css">
+    <script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>
+</head>
+<body>
+<!--
+功能：
+所属：刁玉宽
+-->
+<div id="app">
+<!--    这里传值使用的是v-bind-->
+    <com1 v-bind:parentmsg="msg"></com1>
+</div>
+<script>
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            msg:'这是父组件'
+        },
+        methods: {
+        },
+        components:{
+            com1:{
+                //子组件无法访问到父组件的data或methods，但是可以通过属性绑定的方法实现获取父组件的值
+                //template:'<h3>这是子组件-----------{{this.msg}}</h3>'
+                template:'<h3>这是子组件------------{{ parentmsg }}</h3>',
+
+                //props中的数据都是父组件传递过来的(他的数据都是只读的)
+                props:['parentmsg']//需要把父组件传递过来的parentmsg在数组中定义一下
+            }
+        }
+    });
+</script>
+
+
+</body>
+</html>
